@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"path/filepath"
 	"text/template"
 
@@ -11,6 +12,7 @@ import (
 
 var (
 	templates = template.Must(template.ParseGlob("templates/*.html"))
+	port = os.Getenv("PORT")
 )
 
 func main() {
@@ -27,8 +29,8 @@ func main() {
 			}
 		})
 	}
-	fmt.Println("Listening on http://localhost:8080")
-	http.ListenAndServe(":8080", nil)
+	fmt.Println("Listening on http://localhost:"+port)
+	http.ListenAndServe(":"+port, nil)
 }
 
 var urlMap = map[string]string{
