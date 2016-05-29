@@ -12,24 +12,32 @@ import (
 
 var (
 	templates = template.Must(template.ParseGlob("templates/*.html"))
-	port = os.Getenv("PORT")
+	port      = os.Getenv("PORT")
 )
+
+func handleContent(filename string, w http.ResponseWriter, r *http.Request) {
+	doc, err := markdown.NewDocument(filename)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+	err = templates.ExecuteTemplate(w, "view.html", doc)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}
 
 func main() {
 	for p := range urlMap {
 		http.HandleFunc(p, func(w http.ResponseWriter, r *http.Request) {
 			fn := filepath.Join("content", urlMap[p])
-			doc, err := markdown.NewDocument(fn)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
-			err = templates.ExecuteTemplate(w, "view.html", doc)
-			if err != nil {
-				http.Error(w, err.Error(), http.StatusInternalServerError)
-			}
+			handleContent(fn, w, r)
 		})
 	}
-	fmt.Println("Listening on http://localhost:"+port)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fn := filepath.Join("content", "index.md")
+		handleContent(fn, w, r)
+	})
+	fmt.Println("Listening on http://localhost:" + port)
 	http.ListenAndServe(":"+port, nil)
 }
 
