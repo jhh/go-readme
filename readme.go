@@ -32,5 +32,6 @@ func main() {
 }
 
 var urlMap = map[string]string{
-	"/rpi-ruby": "20160527_rpi_ruby.md",
+	"/rpi-ruby":      "20160527_rpi_ruby.md",
+	"/deploy-readme": "20160528_foreman.md",
 }
