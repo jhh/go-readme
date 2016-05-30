@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html>
+{{define "title"}}Readme Index{{end}}
 
-<head>
-  <meta charset="utf-8">
-  <title>Readme</title>
-</head>
-
-<body>
+{{define "content"}}
   <ul>
     {{range .}}
     <li><a href="{{.Path}}">{{.Meta.Title}}</a></li>
     {{end}}
   </ul>
-</body>
-
-</html>
+{{end}}

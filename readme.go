@@ -13,8 +13,13 @@ import (
 
 var (
 	port        = os.Getenv("PORT")
-	contentTmpl = template.Must(template.ParseFiles(filepath.Join("templates", "content.html")))
-	validPath   = regexp.MustCompile("^/(content/[a-zA-Z0-9_]+\\.md)$")
+	contentTmpl = template.Must(
+		template.ParseFiles(
+			filepath.Join("templates", "content.html"),
+			filepath.Join("templates", "layout.html"),
+		),
+	)
+	validPath = regexp.MustCompile("^/(content/[a-zA-Z0-9_]+\\.md)$")
 )
 
 func handleContent(w http.ResponseWriter, r *http.Request) {
@@ -30,7 +35,7 @@ func handleContent(w http.ResponseWriter, r *http.Request) {
 		log.Print(err)
 		return
 	}
-	err = contentTmpl.Execute(w, doc)
+	err = contentTmpl.ExecuteTemplate(w, "layout", doc)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		log.Print(err)

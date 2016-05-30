@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html>
+{{define "title"}}{{.Meta.Title}}{{end}}
 
-<head>
-  <meta charset="utf-8">
-  <title>{{.Meta.Title}}</title>
-</head>
-
-<body>
+{{define "content"}}
   <p><a href="/">Index</a></p>
   <div>{{printf "%s" .Body}}</div>
-</body>
-
-</html>
+{{end}}

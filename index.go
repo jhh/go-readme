@@ -8,7 +8,12 @@ import (
 	"jhhgo.us/tmp/markdown"
 )
 
-var indexTmpl = template.Must(template.ParseFiles(filepath.Join("templates", "index.html")))
+var indexTmpl = template.Must(
+	template.ParseFiles(
+		filepath.Join("templates", "index.html"),
+		filepath.Join("templates", "layout.html"),
+	),
+)
 
 // IndexEntry is an reference to a document.
 type IndexEntry struct {
@@ -39,7 +44,7 @@ func NewIndex(path string) (Index, error) {
 
 // IndexHandler displays the page index.
 func (idx Index) IndexHandler(w http.ResponseWriter, r *http.Request) {
-	err := indexTmpl.Execute(w, idx)
+	err := indexTmpl.ExecuteTemplate(w, "layout", idx)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
