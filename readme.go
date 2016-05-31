@@ -19,7 +19,7 @@ var (
 			filepath.Join("templates", "layout.html"),
 		),
 	)
-	validPath = regexp.MustCompile("^/(content/[a-zA-Z0-9_]+\\.md)$")
+	validPath = regexp.MustCompile("^/(content)/([a-zA-Z0-9_]+\\.md)$")
 )
 
 func handleContent(w http.ResponseWriter, r *http.Request) {
@@ -29,7 +29,7 @@ func handleContent(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	doc, err := markdown.NewDocument(m[1])
+	doc, err := markdown.NewDocument(filepath.Join(m[1], m[2]))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		log.Print(err)
