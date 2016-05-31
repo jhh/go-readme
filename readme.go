@@ -54,11 +54,9 @@ func main() {
 	}
 
 	http.HandleFunc("/", idx.IndexHandler)
+
+	http.Handle("/css/", http.FileServer(http.Dir("static")))
+
 	log.Println("listening on http://localhost:" + port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
-}
-
-var urlMap = map[string]string{
-	"/rpi-ruby":      "20160527_rpi_ruby.md",
-	"/deploy-readme": "20160528_foreman.md",
 }
