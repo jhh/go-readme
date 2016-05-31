@@ -37,7 +37,7 @@ func NewIndex(path string) (Index, error) {
 		if err != nil {
 			return nil, err
 		}
-		idx = append(idx, IndexEntry{Path: "/" + f, Meta: doc.Meta})
+		idx = append(idx, IndexEntry{Path: filepath.ToSlash(f), Meta: doc.Meta})
 	}
 	return idx, nil
 }
