@@ -56,6 +56,7 @@ func main() {
 	http.HandleFunc("/", idx.IndexHandler)
 
 	http.Handle("/css/", http.FileServer(http.Dir("static")))
+	http.Handle("/js/", http.FileServer(http.Dir("static")))
 
 	log.Println("listening on http://localhost:" + port)
 	log.Fatal(http.ListenAndServe(":"+port, nil))
