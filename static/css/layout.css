@@ -1,6 +1,11 @@
 body {
-  font-family: Courier;
+    font-family: Courier;
+}
+#content {
+    width: 50rem;
+    margin-top: 5rem;
+    margin-left: 10rem;
 }
 pre, code {
-  background-color: #EEEEEE;
+    background-color: #EEEEEE;
 }
