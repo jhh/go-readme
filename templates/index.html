@@ -2,9 +2,12 @@
 
 {{define "content"}}
   <h1 class="title">README</h1>
-  <ul>
-    {{range .}}
-    <li><a href="/{{.Path}}">{{.Title}}</a></li>
+    {{range $key, $val := .}}
+    <h2>{{$key}}</h2>
+    <ul>
+      {{range $val}}
+      <li><a href="/{{.Path}}">{{.Title}}</a></li>
+      {{end}}
+    </ul>
     {{end}}
-  </ul>
 {{end}}

@@ -16,20 +16,35 @@ var indexTmpl = template.Must(
 )
 
 // Index holds the metadata for all content.
-type Index []markdown.Meta
+type Index map[string][]markdown.Meta
 
 // NewIndex loads the index.
 func NewIndex(path string) (Index, error) {
+	// will read all docs in content directory given in path
 	files, err := filepath.Glob(filepath.Join(path, "*.md"))
 	if err != nil {
 		return nil, err
 	}
 
-	return makeIndex(files)
+	// get metadata for each document
+	meta, err := collectMeta(files)
+	if err != nil {
+		return nil, err
+	}
+
+	// group by categories
+	idx := make(Index)
+	for _, m := range meta {
+		for _, c := range m.Categories {
+			idx[c] = append(idx[c], m)
+		}
+	}
+
+	return idx, err
 }
 
-func makeIndex(files []string) (Index, error) {
-	idx := make(Index, 0)
+func collectMeta(files []string) ([]markdown.Meta, error) {
+	var idx []markdown.Meta
 	for _, f := range files {
 		doc, err := markdown.NewDocument(f)
 		if err != nil {

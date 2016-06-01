@@ -22,15 +22,20 @@ func TestNewIndex(t *testing.T) {
 		t.Error(err)
 	}
 
-	for _, m := range idx {
-		if m.Title == "" {
-			t.Error("metadata title is empty")
+	for c := range idx {
+		for _, m := range idx[c] {
+			if m.Title == "" {
+				t.Error("metadata title is empty")
+			}
 		}
 	}
 }
 
 func TestIndexHandler(t *testing.T) {
-	idx, _ := NewIndex("testdata")
+	idx, err := NewIndex("testdata")
+	if err != nil {
+		t.Error(err)
+	}
 	ts := httptest.NewServer(http.HandlerFunc(idx.IndexHandler))
 	defer ts.Close()
 
