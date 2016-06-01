@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"text/template"
 
-	"jhhgo.us/tmp/markdown"
+	"jhhgo.us/markdown"
 )
 
 var (
