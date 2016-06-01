@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"jhhgo.us/tmp/markdown"
+	"jhhgo.us/markdown"
 )
 
 var indexTmpl = template.Must(
