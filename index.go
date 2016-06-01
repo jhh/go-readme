@@ -15,14 +15,8 @@ var indexTmpl = template.Must(
 	),
 )
 
-// IndexEntry is an reference to a document.
-type IndexEntry struct {
-	Path string
-	markdown.Meta
-}
-
 // Index holds the metadata for all content.
-type Index []IndexEntry
+type Index []markdown.Meta
 
 // NewIndex loads the index.
 func NewIndex(path string) (Index, error) {
@@ -31,13 +25,17 @@ func NewIndex(path string) (Index, error) {
 		return nil, err
 	}
 
-	idx := Index{}
+	return makeIndex(files)
+}
+
+func makeIndex(files []string) (Index, error) {
+	idx := make(Index, 0)
 	for _, f := range files {
 		doc, err := markdown.NewDocument(f)
 		if err != nil {
 			return nil, err
 		}
-		idx = append(idx, IndexEntry{Path: filepath.ToSlash(f), Meta: doc.Meta})
+		idx = append(idx, doc.Meta)
 	}
 	return idx, nil
 }
