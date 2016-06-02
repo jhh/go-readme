@@ -8,16 +8,15 @@
     <link rel="stylesheet" href="/css/layout.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/css/highlight/github.css" media="screen" title="no title" charset="utf-8">
     <script src="/js/highlight.pack.js"></script>
-    <script>
-        hljs.initHighlightingOnLoad();
-    </script>
 </head>
 
 <body>
     <div id="content">
         {{template "content" .}}
     </div>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
 </body>
-
 </html>
 {{end}}
