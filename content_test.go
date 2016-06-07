@@ -15,7 +15,8 @@ func TestContentHandler(t *testing.T) {
 	}))
 	defer ts.Close()
 
-	// override validPath set in readme.go
+	// override config set in readme.go
+	contentPath = "testdata"
 	saveValidPath := validPath
 	validPath = regexp.MustCompile("^/(testdata)/(ok_cat_bar1\\.md)$")
 	res, err := http.Get(ts.URL + "/testdata/ok_cat_bar1.md")

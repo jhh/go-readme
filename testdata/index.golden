@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="/css/layout.css" media="screen" title="no title" charset="utf-8">
     <link rel="stylesheet" href="/css/highlight/github.css" media="screen" title="no title" charset="utf-8">
     <script src="/js/highlight.pack.js"></script>
-    <script>
-        hljs.initHighlightingOnLoad();
-    </script>
 </head>
 
 <body>
@@ -21,28 +18,30 @@
     <h2>bar</h2>
     <ul>
       
-      <li><a href="/testdata/ok_cat_bar1.md">Category bar: 2016-04-27T23:45:46.000Z</a></li>
+      <li><a href="/content/ok_cat_bar1.md">Category bar: 2016-04-27T23:45:46.000Z</a></li>
       
     </ul>
     
     <h2>foo</h2>
     <ul>
       
-      <li><a href="/testdata/ok_cat_foo1.md">Category foo: 2016-05-27T23:45:46.000Z</a></li>
+      <li><a href="/content/ok_cat_foo1.md">Category foo: 2016-05-27T23:45:46.000Z</a></li>
       
     </ul>
     
     <h2>test</h2>
     <ul>
       
-      <li><a href="/testdata/ok_cat_test1.md">Category test: 2016-05-26T23:45:46.000Z</a></li>
+      <li><a href="/content/ok_cat_test1.md">Category test: 2016-05-26T23:45:46.000Z</a></li>
       
-      <li><a href="/testdata/ok_cat_test2.md">Category test: 2016-05-27T23:45:46.000Z</a></li>
+      <li><a href="/content/ok_cat_test2.md">Category test: 2016-05-27T23:45:46.000Z</a></li>
       
     </ul>
     
 
     </div>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
 </body>
-
 </html>

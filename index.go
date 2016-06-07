@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"html/template"
 	"net/http"
 	"path/filepath"
@@ -24,6 +25,9 @@ func NewIndex(path string) (Index, error) {
 	files, err := filepath.Glob(filepath.Join(path, "*.md"))
 	if err != nil {
 		return nil, err
+	}
+	if len(files) == 0 {
+		return nil, errors.New("no documents found in " + path)
 	}
 
 	// get metadata for each document
