@@ -50,7 +50,7 @@ func NewIndex(path string) (Index, error) {
 func collectMeta(files []string) ([]markdown.Meta, error) {
 	var idx []markdown.Meta
 	for _, f := range files {
-		doc, err := markdown.NewDocument(f)
+		doc, err := markdown.NewDocument(contentPath, f)
 		if err != nil {
 			return nil, err
 		}
