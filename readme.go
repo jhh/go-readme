@@ -13,7 +13,7 @@ import (
 
 var (
 	port        = os.Getenv("PORT")
-	contentPath = os.Getenv("CONTENT_PATH")
+	contentPath = os.Getenv("DATA")
 	contentTmpl = template.Must(
 		template.ParseFiles(
 			filepath.Join("templates", "content.html"),
@@ -30,7 +30,7 @@ func handleContent(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	doc, err := markdown.NewDocument(filepath.Join(contentPath, m[2]))
+	doc, err := markdown.NewDocument(contentPath, filepath.Join(contentPath, m[2]))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		log.Print(err)
