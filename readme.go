@@ -13,6 +13,7 @@ import (
 
 var (
 	port        = os.Getenv("PORT")
+	contentPath = os.Getenv("CONTENT_PATH")
 	contentTmpl = template.Must(
 		template.ParseFiles(
 			filepath.Join("templates", "content.html"),
@@ -29,7 +30,7 @@ func handleContent(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	doc, err := markdown.NewDocument(filepath.Join(m[1], m[2]))
+	doc, err := markdown.NewDocument(filepath.Join(contentPath, m[2]))
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		log.Print(err)
@@ -48,7 +49,8 @@ func main() {
 
 	http.HandleFunc("/content/", handleContent)
 
-	idx, err := NewIndex("content")
+	log.Printf("indexing content in %s", contentPath)
+	idx, err := NewIndex(contentPath)
 	if err != nil {
 		log.Fatal(err)
 	}
