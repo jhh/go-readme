@@ -20,7 +20,7 @@ var (
 			filepath.Join("templates", "layout.html"),
 		),
 	)
-	validPath = regexp.MustCompile("^/(content)/([a-zA-Z0-9_]+\\.md)$")
+	validPath = regexp.MustCompile(`^/(content)/([a-zA-Z0-9_]+\.md)$`)
 )
 
 func handleContent(w http.ResponseWriter, r *http.Request) {

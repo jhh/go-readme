@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -18,16 +19,20 @@ func TestContentHandler(t *testing.T) {
 	// override config set in readme.go
 	contentPath = "testdata"
 	saveValidPath := validPath
-	validPath = regexp.MustCompile("^/(testdata)/(ok_cat_bar1\\.md)$")
+	validPath = regexp.MustCompile(`^/(testdata)/(ok_cat_bar1\.md)$`)
 	res, err := http.Get(ts.URL + "/testdata/ok_cat_bar1.md")
 	if err != nil {
 		t.Fatal(err)
 	}
+	defer func() {
+		if e := res.Body.Close(); e != nil {
+			fmt.Print(e)
+		}
+	}()
 	// restore validPath
 	validPath = saveValidPath
 
 	body, err := ioutil.ReadAll(res.Body)
-	res.Body.Close()
 	if err != nil {
 		t.Fatal(err)
 	}

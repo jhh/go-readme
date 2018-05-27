@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"flag"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -44,14 +45,20 @@ func TestIndexHandler(t *testing.T) {
 		t.Fatal(err)
 	}
 	body, err := ioutil.ReadAll(res.Body)
-	res.Body.Close()
+	defer func() {
+		if e := res.Body.Close(); e != nil {
+			fmt.Print(e)
+		}
+	}()
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	golden := filepath.Join("testdata", "index.golden")
 	if *update == "index" {
-		ioutil.WriteFile(golden, body, 0644)
+		if err := ioutil.WriteFile(golden, body, 0644); err != nil {
+			t.Fatal(err)
+		}
 	}
 	want, _ := ioutil.ReadFile(golden)
 	if !bytes.Equal(body, want) {
